@@ -1,5 +1,6 @@
-import Dashboard from "@/src/screens/Dashboard";
-import { SafeAreaView, ScrollView, StyleSheet, Text } from "react-native";
+import {Dashboard} from "@/src/screens/Dashboard";
+import { COLORS } from "@/src/themes/colors";
+import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 
 export default function Index() {
 
@@ -7,18 +8,17 @@ export default function Index() {
   return (
     <ScrollView style={styles.container}>
       <SafeAreaView>
-      <Dashboard />
+        <Dashboard />
       </SafeAreaView>
-</ScrollView>
-  )
+    </ScrollView>
+  );
 }
 
 const styles = StyleSheet.create({
 
   container: {
-    // width: '100%',
-    // height: '100%',
+
     flex: 1,
-    backgroundColor: '#83b1fc'
+    backgroundColor: COLORS.background
   }
 });
