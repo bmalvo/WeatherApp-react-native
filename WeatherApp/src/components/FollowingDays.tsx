@@ -9,20 +9,56 @@ type FollowingdaysProps = {
         name: string,
         value: string,
         type: string
-    },
-    index: number
+  },
+  isLast: boolean
 }
 
-const FollowingDays = ({day, index}:FollowingdaysProps) => {
+const FollowingDays = ({day, isLast}:FollowingdaysProps) => {
   return (
-    <View>
-      <Text key={index}>{ day.name}</Text>
-                          <Text key={index}>{ day.value}</Text>
-                          {<Octicons name="sun" size={20} color={COLORS.sun} />}
+    <View style={[styles.container, !isLast && styles.separator]}>
+      <Text style={styles.content}>{day.name}</Text>
+      <Text style={[styles.content, styles.value]}>{day.value}</Text>
+      {<Octicons
+        name="sun" size={20}
+        // color={COLORS.sun}
+        style={ [styles.content, styles.type]} />}
     </View>
   )
 }
 
 export default FollowingDays
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+
+  container: {
+
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+
+  separator: {
+
+    borderWidth: 1,
+    borderColor: COLORS.background
+  },
+
+  content: {
+
+    flex: 1,
+    color: COLORS.text
+  },
+
+  value: {
+
+    textAlign: 'center',
+    fontWeight: '600'
+  },
+
+  type: {
+
+    textAlign: 'right',
+    color: COLORS.sun
+  }
+})

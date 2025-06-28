@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import Octicons from '@expo/vector-icons/Octicons';
 import { COLORS } from '../themes/colors';
@@ -22,23 +22,26 @@ const FOLLOWING_DAYS = [{
 
 export const Dashboard = () => {
     return (
-        <View style={styles.constainer}>
-            <Text style={styles.cityName}>Żory</Text>
-            <Text style={styles.temperatures}>27°</Text>
-            <View style={styles.weatherContainer}>
-            <Octicons name="sun" size={50} color={COLORS.sun} />
-            <Text style={styles.weather}>Słonecznie</Text>
-            </View>
-            <View>
-                {FOLLOWING_DAYS.map((item, index) => (
+        <ScrollView>
 
-                    <>
-                        <FollowingDays day={item} index={index} />
-                    </>
-                ))}
+            <View style={styles.constainer}>
+                <Text style={styles.cityName}>Żory</Text>
+                <Text style={styles.temperatures}>27°</Text>
+                <View style={styles.weatherContainer}>
+                    <Octicons name="sun" size={50} color={COLORS.sun} />
+                    <Text style={styles.weather}>Słonecznie</Text>
+                </View>
+                <View>
+                    <View style={styles.followingDaysContainer}>
+                        {FOLLOWING_DAYS.map((item, index) => (
+                    
+                            <FollowingDays key={index} day={item} isLast={index === FOLLOWING_DAYS.length -1 } />
+                        ))}
+                    </View>
+                </View>
             </View>
-        </View>
-    )
+        </ScrollView>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -74,5 +77,15 @@ const styles = StyleSheet.create({
 
         fontSize: 26,
         color: COLORS.text
+    },
+
+    followingDaysContainer: {
+
+        margin: 20, 
+        marginTop: 40,
+        backgroundColor: COLORS.lightBlue,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderRadius: 10
     }
 })
