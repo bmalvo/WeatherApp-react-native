@@ -1,5 +1,12 @@
+//  main task!!! do not see url fron .env (undefined!!!)
+
+
+
+
+
+
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Octicons from '@expo/vector-icons/Octicons';
 import { COLORS } from '../themes/colors';
 import FollowingDays from '../components/FollowingDays';
@@ -21,6 +28,19 @@ const FOLLOWING_DAYS = [{
     }]
 
 export const Dashboard = () => {
+
+    console.log('before')
+    console.log(`${process.env.EXPO_PULBIC_API_URL}`)
+
+    useEffect(() => {
+
+        fetch(`${process.env.EXPO_PULBIC_API_URL}/current.json?key=${process.env.EXPO_PUBLIC_API_KEY}?q=Zory`)
+            .then((res) => res.json())
+            .then((res) => console.log(res))
+    }, [])
+    
+    console.log('after')
+
     return (
         <ScrollView>
 
