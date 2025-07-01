@@ -1,12 +1,5 @@
-//  main task!!! do not see url fron .env (undefined!!!)
-
-
-
-
-
-
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import React, { useEffect } from 'react';
+import { ScrollView, StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import Octicons from '@expo/vector-icons/Octicons';
 import { COLORS } from '../themes/colors';
 import FollowingDays from '../components/FollowingDays';
@@ -29,17 +22,28 @@ const FOLLOWING_DAYS = [{
 
 export const Dashboard = () => {
 
-    console.log('before')
-    console.log(`${process.env.EXPO_PULBIC_API_URL}`)
+    const [current, setCurrent] = useState()
+    console.log('curent: ', current)
+    let url = process.env.EXPO_PUBLIC_API_URL
+    let key = process.env.EXPO_PUBLIC_API_KEY
+    console.log('url -> ', url)
+    console.log('key -> ', key)
+
 
     useEffect(() => {
 
-        fetch(`${process.env.EXPO_PULBIC_API_URL}/current.json?key=${process.env.EXPO_PUBLIC_API_KEY}?q=Zory`)
+        fetch(
+            `${process.env.EXPO_PUBLIC_API_URL}/current.json?key=${process.env.EXPO_PUBLIC_API_KEY}&q=Zory`
+        )
             .then((res) => res.json())
-            .then((res) => console.log(res))
+            .then((res) => setCurrent(res))
     }, [])
+    console.log('curent: ',current)
     
-    console.log('after')
+    if (!current) {
+        
+        return <ActivityIndicator color={COLORS.sun} size='80' style={ {height: '100%', marginTop: 100}} />
+    }
 
     return (
         <ScrollView>
