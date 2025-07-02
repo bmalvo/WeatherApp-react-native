@@ -3,6 +3,18 @@ import React, { useEffect, useState } from 'react';
 import Octicons from '@expo/vector-icons/Octicons';
 import { COLORS } from '../themes/colors';
 import FollowingDays from '../components/FollowingDays';
+import { fetchCityData } from '../services/api';
+
+type CurrentProps = {
+    
+    current: {
+        temp_c: number
+    },
+
+    location: {
+        name: string
+    }
+}
 
 const FOLLOWING_DAYS = [{
     name: 'dzisiaj',
@@ -22,35 +34,43 @@ const FOLLOWING_DAYS = [{
 
 export const Dashboard = () => {
 
-    const [current, setCurrent] = useState()
-    console.log('curent: ', current)
-    let url = process.env.EXPO_PUBLIC_API_URL
-    let key = process.env.EXPO_PUBLIC_API_KEY
-    console.log('url -> ', url)
-    console.log('key -> ', key)
+    const size = 80
+
+    const [current, setCurrent] = useState<CurrentProps | null>()
 
 
     useEffect(() => {
 
-        fetch(
-            `${process.env.EXPO_PUBLIC_API_URL}/current.json?key=${process.env.EXPO_PUBLIC_API_KEY}&q=Zory`
-        )
-            .then((res) => res.json())
-            .then((res) => setCurrent(res))
+        const init = async () => {
+            
+            const response = await fetchCityData()
+            setCurrent(response)
+        }
+
+        init();
+
+        return () => {
+
+            setCurrent(null);
+        }
+
     }, [])
-    console.log('curent: ',current)
+
     
     if (!current) {
         
-        return <ActivityIndicator color={COLORS.sun} size='80' style={ {height: '100%', marginTop: 100}} />
+        return <ActivityIndicator
+            color={COLORS.sun}
+            size={size}
+            style={{ height: '100%', marginTop: 100 }} />
     }
 
     return (
         <ScrollView>
 
             <View style={styles.constainer}>
-                <Text style={styles.cityName}>Żory</Text>
-                <Text style={styles.temperatures}>27°</Text>
+                <Text style={styles.cityName}>{ current.location.name}</Text>
+                <Text style={styles.temperatures}>{ current.current.temp_c}°</Text>
                 <View style={styles.weatherContainer}>
                     <Octicons name="sun" size={50} color={COLORS.sun} />
                     <Text style={styles.weather}>Słonecznie</Text>
