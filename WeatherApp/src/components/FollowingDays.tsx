@@ -5,10 +5,12 @@ import { COLORS } from '../themes/colors'
 
 type FollowingdaysProps = {
 
+  day: {
+    date: string,
+    type: string,
     day: {
-        name: string,
-        value: string,
-        type: string
+      avgtemp_c: string
+    }     
   },
   isLast: boolean
 }
@@ -16,8 +18,8 @@ type FollowingdaysProps = {
 const FollowingDays = ({day, isLast}:FollowingdaysProps) => {
   return (
     <View style={[styles.container, !isLast && styles.separator]}>
-      <Text style={styles.content}>{day.name}</Text>
-      <Text style={[styles.content, styles.value]}>{day.value}</Text>
+      <Text style={styles.content}>{day.date}</Text>
+      <Text style={[styles.content, styles.value]}>{day.day.avgtemp_c}</Text>
       {<Octicons
         name="sun" size={20}
         // color={COLORS.sun}

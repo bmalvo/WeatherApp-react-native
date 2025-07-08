@@ -1,20 +1,63 @@
-import { ScrollView, StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, ActivityIndicator, Image } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import Octicons from '@expo/vector-icons/Octicons';
 import { COLORS } from '../themes/colors';
 import FollowingDays from '../components/FollowingDays';
-import { fetchCityData } from '../services/api';
+import { fetchCityData, fetchFollowingDays } from '../services/api';
 
 type CurrentProps = {
     
     current: {
-        temp_c: number
+        temp_c: number,
+
+        condition: {
+            text: string,
+            icon: string
+        }
     },
 
     location: {
         name: string
     }
 }
+
+type ForecastDay = {
+    date: string;
+    [key: string]: any; // Add more specific fields as needed
+    type: string;
+    day: {
+        date: string,
+        type: string,
+        day: {
+          avgtemp_c: string
+        }     
+      },
+      isLast: boolean
+};
+
+type FollowingDaysProps = {
+
+    forecast: {
+
+        forecastday: ForecastDay[]
+    },
+    day: {
+        date: string,
+        type: string,
+        day: {
+          avgtemp_c: string
+        }     
+      },
+      isLast: boolean
+    }
+
+
+// type Day = {
+//     date: string;
+//     type: string;
+//     day: {
+//         avgtemp_c: string;
+//     }
+// }
 
 const FOLLOWING_DAYS = [{
     name: 'dzisiaj',
@@ -37,6 +80,7 @@ export const Dashboard = () => {
     const size = 80
 
     const [current, setCurrent] = useState<CurrentProps | null>()
+    const [followingDays, setFollowingDays] = useState<FollowingDaysProps | null>()
 
 
     useEffect(() => {
@@ -45,6 +89,8 @@ export const Dashboard = () => {
             
             const response = await fetchCityData()
             setCurrent(response)
+            const followingDaysResponse = await fetchFollowingDays()
+            setFollowingDays(followingDaysResponse)
         }
 
         init();
@@ -56,6 +102,7 @@ export const Dashboard = () => {
 
     }, [])
 
+    console.log(followingDays)
     
     if (!current) {
         
@@ -72,14 +119,21 @@ export const Dashboard = () => {
                 <Text style={styles.cityName}>{ current.location.name}</Text>
                 <Text style={styles.temperatures}>{ current.current.temp_c}°</Text>
                 <View style={styles.weatherContainer}>
-                    <Octicons name="sun" size={50} color={COLORS.sun} />
-                    <Text style={styles.weather}>Słonecznie</Text>
+                    <Image
+                        source={{
+                            uri: `https:${current.current.condition.icon}`
+                        }}
+                        width={130}
+                        height={130}
+                        resizeMode='contain'
+                    />
+                    <Text style={styles.weather}>{ current.current.condition.text}</Text>
                 </View>
                 <View>
                     <View style={styles.followingDaysContainer}>
-                        {FOLLOWING_DAYS.map((item, index) => (
+                        {followingDays?.forecast.forecastday.map((day, index, allDays) => (
                     
-                            <FollowingDays key={index} day={item} isLast={index === FOLLOWING_DAYS.length -1 } />
+                            <FollowingDays key={day.date} day={day} isLast={index === allDays.length -1 } />
                         ))}
                     </View>
                 </View>
@@ -93,7 +147,6 @@ const styles = StyleSheet.create({
     constainer: {
 
         alignItems: 'center',
-        marginTop: 10
     },
 
     weatherContainer: {
