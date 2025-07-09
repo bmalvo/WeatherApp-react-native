@@ -1,7 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
-import Octicons from '@expo/vector-icons/Octicons'
 import { COLORS } from '../themes/colors'
+import dayjs from 'dayjs'
+import 'dayjs/locale/pl'
+import isToday from 'dayjs/plugin/isToday';
+
+dayjs.extend(isToday)
+dayjs.locale('pl')
 
 type FollowingdaysProps = {
 
@@ -9,23 +14,34 @@ type FollowingdaysProps = {
     date: string,
     type: string,
     day: {
-      avgtemp_c: string
+      mintemp_c: number,
+      maxtemp_c: number,
+      condition: {
+        icon: string
+      }
     }     
   },
   isLast: boolean
 }
 
-const FollowingDays = ({day, isLast}:FollowingdaysProps) => {
+const FollowingDays = ({ day, isLast }: FollowingdaysProps) => {
+  
+  const date = dayjs(day.date).isToday() ? 'dzisiaj' : dayjs(day.date).format('dddd')
+
   return (
     <View style={[styles.container, !isLast && styles.separator]}>
-      <Text style={styles.content}>{day.date}</Text>
-      <Text style={[styles.content, styles.value]}>{day.day.avgtemp_c}</Text>
-      {<Octicons
-        name="sun" size={20}
-        // color={COLORS.sun}
-        style={ [styles.content, styles.type]} />}
+      <Text style={styles.content}>{date}</Text>
+      <Text style={[styles.content, styles.value]}>{Math.floor(day.day.mintemp_c)}°-{Math.ceil(day.day.maxtemp_c)}°</Text>
+      <Image
+        source={{
+          uri: `https:${day.day.condition.icon}`
+        }}
+        width={40}
+        height={40}
+        resizeMode='contain'
+      />
     </View>
-  )
+  );
 }
 
 export default FollowingDays
@@ -37,7 +53,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    minHeight: 40
   },
 
   separator: {

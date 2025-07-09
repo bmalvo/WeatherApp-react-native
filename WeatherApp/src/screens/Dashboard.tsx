@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { COLORS } from '../themes/colors';
 import FollowingDays from '../components/FollowingDays';
 import { fetchCityData, fetchFollowingDays } from '../services/api';
+import Footer from '../components/Footer';
 
 type CurrentProps = {
     
@@ -22,13 +23,16 @@ type CurrentProps = {
 
 type ForecastDay = {
     date: string;
-    [key: string]: any; // Add more specific fields as needed
-    type: string;
+    type: string
     day: {
         date: string,
         type: string,
         day: {
-          avgtemp_c: string
+          mintemp_c: number,
+          maxtemp_c: number,
+          condition: {
+            icon: string
+          }
         }     
       },
       isLast: boolean
@@ -50,30 +54,6 @@ type FollowingDaysProps = {
       isLast: boolean
     }
 
-
-// type Day = {
-//     date: string;
-//     type: string;
-//     day: {
-//         avgtemp_c: string;
-//     }
-// }
-
-const FOLLOWING_DAYS = [{
-    name: 'dzisiaj',
-    value: '22',
-    type: 'słonecznie'
-},
-{
-    name: 'sobota',
-    value: '27',
-    type: 'deszcz'
-    },
-    {
-        name: 'niedziela',
-        value: '17',
-        type: 'burza'
-    }]
 
 export const Dashboard = () => {
 
@@ -132,12 +112,13 @@ export const Dashboard = () => {
                 <View>
                     <View style={styles.followingDaysContainer}>
                         {followingDays?.forecast.forecastday.map((day, index, allDays) => (
-                    
+                            // console.log(day)
                             <FollowingDays key={day.date} day={day} isLast={index === allDays.length -1 } />
                         ))}
                     </View>
                 </View>
             </View>
+            <Footer/>
         </ScrollView>
     );
 }
