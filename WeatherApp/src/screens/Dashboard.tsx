@@ -4,62 +4,63 @@ import { COLORS } from '../themes/colors';
 import FollowingDays from '../components/FollowingDays';
 import { fetchCityData, fetchFollowingDays } from '../services/api';
 import Footer from '../components/Footer';
+import { CityData } from '../types/api';
 
-type CurrentProps = {
+// type CurrentProps = {
     
-    current: {
-        temp_c: number,
+//     current: {
+//         temp_c: number,
 
-        condition: {
-            text: string,
-            icon: string
-        }
-    },
+//         condition: {
+//             text: string,
+//             icon: string
+//         }
+//     },
 
-    location: {
-        name: string
-    }
-}
+//     location: {
+//         name: string
+//     }
+// }
 
-type ForecastDay = {
-    date: string;
-    type: string
-    day: {
-        date: string,
-        type: string,
-        day: {
-          mintemp_c: number,
-          maxtemp_c: number,
-          condition: {
-            icon: string
-          }
-        }     
-      },
-      isLast: boolean
-};
+// type ForecastDay = {
+//     date: string;
+//     type: string
+//     day: {
+//         date: string,
+//         type: string,
+//         day: {
+//           mintemp_c: number,
+//           maxtemp_c: number,
+//           condition: {
+//             icon: string
+//           }
+//         }     
+//       },
+//       isLast: boolean
+// };
 
-type FollowingDaysProps = {
+// type FollowingDaysProps = {
 
-    forecast: {
+//     forecast: {
 
-        forecastday: ForecastDay[]
-    },
-    day: {
-        date: string,
-        type: string,
-        day: {
-          avgtemp_c: string
-        }     
-      },
-      isLast: boolean
-    }
+//         forecastday: ForecastDay[]
+//     },
+//     day: {
+//         date: string,
+//         type: string,
+//         day: {
+//           avgtemp_c: string
+//         }     
+//       },
+//       isLast: boolean
+//     }
 
 
 export const Dashboard = () => {
 
     const size = 80
 
-    const [current, setCurrent] = useState<CurrentProps | null>()
+    const [current, setCurrent] = useState<CityData | null>(null)
     const [followingDays, setFollowingDays] = useState<FollowingDaysProps | null>()
 
 
@@ -97,7 +98,7 @@ export const Dashboard = () => {
 
             <View style={styles.constainer}>
                 <Text style={styles.cityName}>{ current.location.name}</Text>
-                <Text style={styles.temperatures}>{ current.current.temp_c}°</Text>
+                <Text style={styles.temperatures}>{ Math.round(current.current.temp_c)}°</Text>
                 <View style={styles.weatherContainer}>
                     <Image
                         source={{

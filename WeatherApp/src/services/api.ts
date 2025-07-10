@@ -1,4 +1,6 @@
-export const fetchCityData = async () => {
+import { CityData } from "../types/api"
+
+export const fetchCityData = async (): Promise<CityData> => {
 
     const response = await fetch(
         `${process.env.EXPO_PUBLIC_API_URL}/current.json?key=${process.env.EXPO_PUBLIC_API_KEY}&q=Zory&lang=pl`

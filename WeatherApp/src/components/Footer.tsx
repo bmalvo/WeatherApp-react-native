@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
 
   link: {
 
-    color: '#450E6',
+    color: '#450E66',
+    // color: 'blue'
   }
 })
