@@ -1,4 +1,4 @@
-import { CityData } from "../types/api"
+import { CityData, FollowingDay } from "../types/api"
 
 export const fetchCityData = async (): Promise<CityData> => {
 
@@ -8,7 +8,7 @@ export const fetchCityData = async (): Promise<CityData> => {
         return response.json()
 }
 
-export const fetchFollowingDays = async () => {
+export const fetchFollowingDays = async (): Promise<FollowingDay> => {
 
     const response = await fetch(
 

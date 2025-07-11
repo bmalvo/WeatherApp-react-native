@@ -4,27 +4,14 @@ import { COLORS } from '../themes/colors'
 import dayjs from 'dayjs'
 import 'dayjs/locale/pl'
 import isToday from 'dayjs/plugin/isToday';
+import { ForecastDay } from '../types/api'
 
 dayjs.extend(isToday)
 dayjs.locale('pl')
 
-type FollowingdaysProps = {
 
-  day: {
-    date: string,
-    type: string,
-    day: {
-      mintemp_c: number,
-      maxtemp_c: number,
-      condition: {
-        icon: string
-      }
-    }     
-  },
-  isLast: boolean
-}
 
-const FollowingDays = ({ day, isLast }: FollowingdaysProps) => {
+const FollowingDays = ({ day, isLast }: { day: ForecastDay; isLast: boolean }) => {
   
   const date = dayjs(day.date).isToday() ? 'dzisiaj' : dayjs(day.date).format('dddd')
 

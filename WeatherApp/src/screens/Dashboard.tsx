@@ -4,7 +4,7 @@ import { COLORS } from '../themes/colors';
 import FollowingDays from '../components/FollowingDays';
 import { fetchCityData, fetchFollowingDays } from '../services/api';
 import Footer from '../components/Footer';
-import { CityData } from '../types/api';
+import { CityData, FollowingDay } from '../types/api';
 
 // type CurrentProps = {
     
@@ -61,7 +61,7 @@ export const Dashboard = () => {
     const size = 80
 
     const [current, setCurrent] = useState<CityData | null>(null)
-    const [followingDays, setFollowingDays] = useState<FollowingDaysProps | null>()
+    const [followingDays, setFollowingDays] = useState<FollowingDay | null>()
 
 
     useEffect(() => {
