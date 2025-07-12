@@ -2,13 +2,7 @@ import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
 import { COLORS } from '../themes/colors'
 import dayjs from 'dayjs'
-import 'dayjs/locale/pl'
-import isToday from 'dayjs/plugin/isToday';
 import { ForecastDay } from '../types/api'
-
-dayjs.extend(isToday)
-dayjs.locale('pl')
-
 
 
 const FollowingDays = ({ day, isLast }: { day: ForecastDay; isLast: boolean }) => {

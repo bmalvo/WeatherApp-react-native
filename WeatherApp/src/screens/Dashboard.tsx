@@ -6,55 +6,6 @@ import { fetchCityData, fetchFollowingDays } from '../services/api';
 import Footer from '../components/Footer';
 import { CityData, FollowingDay } from '../types/api';
 
-// type CurrentProps = {
-    
-//     current: {
-//         temp_c: number,
-
-//         condition: {
-//             text: string,
-//             icon: string
-//         }
-//     },
-
-//     location: {
-//         name: string
-//     }
-// }
-
-// type ForecastDay = {
-//     date: string;
-//     type: string
-//     day: {
-//         date: string,
-//         type: string,
-//         day: {
-//           mintemp_c: number,
-//           maxtemp_c: number,
-//           condition: {
-//             icon: string
-//           }
-//         }     
-//       },
-//       isLast: boolean
-// };
-
-// type FollowingDaysProps = {
-
-//     forecast: {
-
-//         forecastday: ForecastDay[]
-//     },
-//     day: {
-//         date: string,
-//         type: string,
-//         day: {
-//           avgtemp_c: string
-//         }     
-//       },
-//       isLast: boolean
-//     }
-
 
 export const Dashboard = () => {
 
