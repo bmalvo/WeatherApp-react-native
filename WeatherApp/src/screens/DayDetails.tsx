@@ -40,23 +40,61 @@ const DayDetails = () => {
                 color={COLORS.sun}
                 size={size}
                 style={{ height: '100%', marginTop: 100 }} />
-    }
+    };
 
-const day = followingDays?.forecast.forecastday[0];
+const day = followingDays?.forecast.forecastday[0]
 const locationName = 'Radlin';
+    
+    if (!day) {
+            
+            return <ActivityIndicator
+                color={COLORS.sun}
+                size={size}
+                style={{ height: '100%', marginTop: 100 }} />
+        }
 
-  return (
-    <View>
-      <Text>{locationName}</Text>
-          <Text>{dayjs(day?.date).format('dddd, D MMM YYYY')}</Text>
+    return (
+        <View style={styles.container}>
+      <Text style={[styles.location, styles.text]}>{locationName}</Text>
+          <Text style={[styles.date, styles.text]}>{dayjs(day?.date).format('dddd, D MMM YYYY')}</Text>
           <Image
               source={{ uri: `https:${day?.day.condition.icon}` }}
               width={100}
-          height={100}/>
+              height={100}
+          />
+          <Text style={[styles.temperature, styles.text]}>
+              {`${Math.floor(day.day.mintemp_c)}°C - ${Math.ceil(day.day.maxtemp_c)}°C`}
+        </Text>
     </View>
   )
 }
 
 export default DayDetails
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+
+    container: {
+
+        alignItems: 'center'
+    },
+    location: {
+
+        fontSize: 30,
+        fontWeight: 'bold',
+    },
+    date: {
+
+        fontSize: 26,
+        marginBottom: 20
+    },
+    temperature: {
+
+        fontSize: 40,
+        fontWeight: '600',
+    },
+    text: {
+
+        color: COLORS.text,
+        marginTop: 20
+    }
+})

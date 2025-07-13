@@ -34,7 +34,7 @@ export const Dashboard = () => {
 
     }, [])
 
-    console.log(followingDays)
+    // console.log(followingDays)
     
     if (!current) {
         
