@@ -10,7 +10,7 @@ type Location = {
     localtime: string
 };
 
-type Condition = {
+export type Condition = {
 
     text: string,
     icon: string,

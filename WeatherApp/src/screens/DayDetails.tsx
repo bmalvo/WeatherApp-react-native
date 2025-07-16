@@ -4,6 +4,7 @@ import { CityData, FollowingDay } from '../types/api'
 import { fetchCityData, fetchFollowingDays } from '../services/api'
 import { COLORS } from '../themes/colors'
 import dayjs from 'dayjs'
+import ListItem from '../components/ListItem'
 
 const DayDetails = () => {
 
@@ -64,7 +65,19 @@ const locationName = 'Radlin';
           />
           <Text style={[styles.temperature, styles.text]}>
               {`${Math.floor(day.day.mintemp_c)}°C - ${Math.ceil(day.day.maxtemp_c)}°C`}
-        </Text>
+            </Text>
+            
+            <View style={styles.listContainer}>
+                {day.hour.map((hour, index, allHours) =>
+                    <ListItem
+                    
+                        key={hour.time}
+                        isLast={index === allHours.length - 1}
+                        title={hour.time}
+                        value={hour.temp_c}
+                        condition={hour.condition}
+                />)}
+            </View>
     </View>
   )
 }
@@ -96,5 +109,14 @@ const styles = StyleSheet.create({
 
         color: COLORS.text,
         marginTop: 20
+    },
+    listContainer: {
+
+        backgroundColor: COLORS.lightBlue,
+        marginTop: 40,
+        marginHorizontal: 20,
+        borderRadius: 10,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
     }
 })
