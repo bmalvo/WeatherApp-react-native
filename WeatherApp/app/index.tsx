@@ -1,7 +1,7 @@
 import {Dashboard} from "@/src/screens/Dashboard";
 import DayDetails from "@/src/screens/DayDetails";
 import { COLORS } from "@/src/themes/colors";
-import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
 import dayjs from 'dayjs'
 import 'dayjs/locale/pl'
 import isToday from 'dayjs/plugin/isToday';
@@ -14,12 +14,14 @@ export default function Index() {
 
 
   return (
-    <ScrollView style={styles.container}>
+    // <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <SafeAreaView>
         {/* <Dashboard /> */}
-        {<DayDetails />}
       </SafeAreaView>
-    </ScrollView>
+      {<DayDetails />}
+    {/* </ScrollView> */}
+    </View>
   );
 }
 

@@ -1,4 +1,4 @@
-import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, FlatList, Image, StyleSheet, Text, View, contentContainerStyle } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { CityData, FollowingDay } from '../types/api'
 import { fetchCityData, fetchFollowingDays } from '../services/api'
@@ -55,30 +55,72 @@ const locationName = 'Radlin';
         }
 
     return (
-        <View style={styles.container}>
-      <Text style={[styles.location, styles.text]}>{locationName}</Text>
-          <Text style={[styles.date, styles.text]}>{dayjs(day?.date).format('dddd, D MMM YYYY')}</Text>
-          <Image
-              source={{ uri: `https:${day?.day.condition.icon}` }}
-              width={100}
-              height={100}
-          />
-          <Text style={[styles.temperature, styles.text]}>
-              {`${Math.floor(day.day.mintemp_c)}°C - ${Math.ceil(day.day.maxtemp_c)}°C`}
-            </Text>
+        //     <View style={styles.container}>
+        //   <Text style={[styles.location, styles.text]}>{locationName}</Text>
+        //       <Text style={[styles.date, styles.text]}>{dayjs(day?.date).format('dddd, D MMM YYYY')}</Text>
+        //       <Image
+        //           source={{ uri: `https:${day?.day.condition.icon}` }}
+        //           width={100}
+        //           height={100}
+        //       />
+        //       <Text style={[styles.temperature, styles.text]}>
+        //           {`${Math.floor(day.day.mintemp_c)}°C - ${Math.ceil(day.day.maxtemp_c)}°C`}
+        //         </Text>
             
-            <View style={styles.listContainer}>
-                {day.hour.map((hour, index, allHours) =>
-                    <ListItem
+        //         <View style={styles.listContainer}>
+        //             {day.hour.map((hour, index, allHours) =>
+        //                 <ListItem
+                    
+        //                     key={hour.time}
+        //                     isLast={index === allHours.length - 1}
+        //                     title={hour.time}
+        //                     value={hour.temp_c}
+        //                     condition={hour.condition}
+        //             />)}
+        //         </View>
+        // </View>
+        <FlatList
+            data={day.hour}
+            // contentContainerStyle={styles.listContainer}
+            ListHeaderComponent={
+                <View>
+                    <View style={styles.container}>
+                        <Text style={[styles.location, styles.text]}>{locationName}</Text>
+                        <Text style={[styles.date, styles.text]}>{dayjs(day?.date).format('dddd, D MMM YYYY')}</Text>
+                        <Image
+                            source={{ uri: `https:${day?.day.condition.icon}` }}
+                            width={100}
+                            height={100}
+                        />
+                        <Text style={[styles.temperature, styles.text]}>
+                            {`${Math.floor(day.day.mintemp_c)}°C - ${Math.ceil(day.day.maxtemp_c)}°C`}
+                        </Text>
+            
+                        <View style={styles.listContainer}>
+                            {day.hour.map((hour, index, allHours) =>
+                                <ListItem
+                    
+                                    key={hour.time}
+                                    isLast={index === allHours.length - 1}
+                                    title={hour.time}
+                                    value={hour.temp_c}
+                                    condition={hour.condition}
+                                />)}
+                        </View>
+                    </View>
+                </View>}
+            renderItem={({item: hour, index}) => 
+
+                <ListItem
                     
                         key={hour.time}
-                        isLast={index === allHours.length - 1}
+                        isLast={index === day.hour.length - 1}
                         title={hour.time}
                         value={hour.temp_c}
                         condition={hour.condition}
-                />)}
-            </View>
-    </View>
+                />
+            }
+        />
   )
 }
 
