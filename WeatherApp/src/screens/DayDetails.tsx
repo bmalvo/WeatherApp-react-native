@@ -1,4 +1,4 @@
-import { ActivityIndicator, FlatList, Image, StyleSheet, Text, View, contentContainerStyle } from 'react-native'
+import { ActivityIndicator, FlatList, Image, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { CityData, FollowingDay } from '../types/api'
 import { fetchCityData, fetchFollowingDays } from '../services/api'
@@ -96,9 +96,9 @@ const locationName = 'Radlin';
                             {`${Math.floor(day.day.mintemp_c)}°C - ${Math.ceil(day.day.maxtemp_c)}°C`}
                         </Text>
             
-                        <View style={styles.listContainer}>
+                        {/* <View style={styles.listContainer}>
                             {day.hour.map((hour, index, allHours) =>
-                                <ListItem
+                                 <ListItem
                     
                                     key={hour.time}
                                     isLast={index === allHours.length - 1}
@@ -106,19 +106,27 @@ const locationName = 'Radlin';
                                     value={hour.temp_c}
                                     condition={hour.condition}
                                 />)}
-                        </View>
+                         </View> */}
                     </View>
                 </View>}
-            renderItem={({item: hour, index}) => 
+            renderItem={({item: hour, index}) => {
 
-                <ListItem
+                const isLats = index === day.hour.length - 1
+
+                return (
+                    <View style={[styles.item, index === 0 && styles.firstItem, isLats && styles.lastItem]}>
+
+                        <ListItem
                     
-                        key={hour.time}
-                        isLast={index === day.hour.length - 1}
-                        title={hour.time}
-                        value={hour.temp_c}
-                        condition={hour.condition}
-                />
+                            key={hour.time}
+                            isLast={isLats}
+                            title={hour.time}
+                            value={hour.temp_c}
+                            condition={hour.condition}
+                        />
+                    </View>
+                )
+        }
             }
         />
   )
@@ -152,13 +160,37 @@ const styles = StyleSheet.create({
         color: COLORS.text,
         marginTop: 20
     },
-    listContainer: {
+    // listContainer: {
+
+    //     backgroundColor: COLORS.lightBlue,
+    //     marginTop: 40,
+        // marginHorizontal: 20,
+    //     borderRadius: 10,
+    //     paddingHorizontal: 20,
+    //     paddingVertical: 10,
+    // }
+
+    item: {
 
         backgroundColor: COLORS.lightBlue,
-        marginTop: 40,
         marginHorizontal: 20,
-        borderRadius: 10,
         paddingHorizontal: 20,
-        paddingVertical: 10,
+
+    },
+
+    firstItem: {
+
+        marginTop: 40,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        paddingTop: 10
+    },
+
+    lastItem: {
+
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+        paddingBottom: 10,
+        marginBottom: 20
     }
 })
