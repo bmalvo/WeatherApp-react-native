@@ -1,27 +1,29 @@
-import {Dashboard} from "@/src/screens/Dashboard";
-import DayDetails from "@/src/screens/DayDetails";
 import { COLORS } from "@/src/themes/colors";
-import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
+import { SafeAreaView, StyleSheet} from "react-native";
+import { StatusBar } from 'expo-status-bar';
 import dayjs from 'dayjs'
 import 'dayjs/locale/pl'
 import isToday from 'dayjs/plugin/isToday';
-// import { ForecastDay } from '../types/api'
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { Root } from "@/src/navigation/Root";
+
 
 dayjs.extend(isToday)
 dayjs.locale('pl')
+
 
 export default function Index() {
 
 
   return (
-    // <ScrollView style={styles.container}>
-    <View style={styles.container}>
-      <SafeAreaView>
-        {/* <Dashboard /> */}
+
+    <SafeAreaProvider>
+      <StatusBar style='light' />
+      <SafeAreaView style={styles.container}>
+        <Root />
       </SafeAreaView>
-      {<DayDetails />}
-    {/* </ScrollView> */}
-    </View>
+    </SafeAreaProvider>
+
   );
 }
 
@@ -30,6 +32,6 @@ const styles = StyleSheet.create({
   container: {
 
     flex: 1,
-    backgroundColor: COLORS.background
+    backgroundColor: COLORS.background,
   }
 });

@@ -55,33 +55,8 @@ const locationName = 'Radlin';
         }
 
     return (
-        //     <View style={styles.container}>
-        //   <Text style={[styles.location, styles.text]}>{locationName}</Text>
-        //       <Text style={[styles.date, styles.text]}>{dayjs(day?.date).format('dddd, D MMM YYYY')}</Text>
-        //       <Image
-        //           source={{ uri: `https:${day?.day.condition.icon}` }}
-        //           width={100}
-        //           height={100}
-        //       />
-        //       <Text style={[styles.temperature, styles.text]}>
-        //           {`${Math.floor(day.day.mintemp_c)}°C - ${Math.ceil(day.day.maxtemp_c)}°C`}
-        //         </Text>
-            
-        //         <View style={styles.listContainer}>
-        //             {day.hour.map((hour, index, allHours) =>
-        //                 <ListItem
-                    
-        //                     key={hour.time}
-        //                     isLast={index === allHours.length - 1}
-        //                     title={hour.time}
-        //                     value={hour.temp_c}
-        //                     condition={hour.condition}
-        //             />)}
-        //         </View>
-        // </View>
         <FlatList
             data={day.hour}
-            // contentContainerStyle={styles.listContainer}
             ListHeaderComponent={
                 <View>
                     <View style={styles.container}>
@@ -95,21 +70,9 @@ const locationName = 'Radlin';
                         <Text style={[styles.temperature, styles.text]}>
                             {`${Math.floor(day.day.mintemp_c)}°C - ${Math.ceil(day.day.maxtemp_c)}°C`}
                         </Text>
-            
-                        {/* <View style={styles.listContainer}>
-                            {day.hour.map((hour, index, allHours) =>
-                                 <ListItem
-                    
-                                    key={hour.time}
-                                    isLast={index === allHours.length - 1}
-                                    title={hour.time}
-                                    value={hour.temp_c}
-                                    condition={hour.condition}
-                                />)}
-                         </View> */}
                     </View>
                 </View>}
-            renderItem={({item: hour, index}) => {
+            renderItem={({ item: hour, index }) => {
 
                 const isLats = index === day.hour.length - 1
 
@@ -126,10 +89,10 @@ const locationName = 'Radlin';
                         />
                     </View>
                 )
-        }
+            }
             }
         />
-  )
+    );
 }
 
 export default DayDetails
@@ -160,15 +123,6 @@ const styles = StyleSheet.create({
         color: COLORS.text,
         marginTop: 20
     },
-    // listContainer: {
-
-    //     backgroundColor: COLORS.lightBlue,
-    //     marginTop: 40,
-        // marginHorizontal: 20,
-    //     borderRadius: 10,
-    //     paddingHorizontal: 20,
-    //     paddingVertical: 10,
-    // }
 
     item: {
 
@@ -193,4 +147,4 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         marginBottom: 20
     }
-})
+});

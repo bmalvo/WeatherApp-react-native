@@ -1,6 +1,4 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
-import { COLORS } from '../themes/colors'
 import dayjs from 'dayjs'
 import { ForecastDay } from '../types/api'
 import ListItem from './ListItem'

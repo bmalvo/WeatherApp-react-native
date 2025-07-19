@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 import { CityData, FollowingDay } from '../types/api';
 
 
-export const Dashboard = () => {
+export const LocationDetails = () => {
 
     const size = 80
 
@@ -34,7 +34,6 @@ export const Dashboard = () => {
 
     }, [])
 
-    // console.log(followingDays)
     
     if (!current) {
         
@@ -80,6 +79,7 @@ const styles = StyleSheet.create({
     constainer: {
 
         alignItems: 'center',
+        backgroundColor: COLORS.background
     },
 
     weatherContainer: {
