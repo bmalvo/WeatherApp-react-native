@@ -79,7 +79,8 @@ const styles = StyleSheet.create({
     constainer: {
 
         alignItems: 'center',
-        backgroundColor: COLORS.background
+        backgroundColor: COLORS.background,
+        height: '100%'
     },
 
     weatherContainer: {
