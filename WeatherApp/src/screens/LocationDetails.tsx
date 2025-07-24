@@ -64,7 +64,12 @@ export const LocationDetails = () => {
                     <View style={styles.followingDaysContainer}>
                         {followingDays?.forecast.forecastday.map((day, index, allDays) => (
                             // console.log(day)
-                            <FollowingDays key={day.date} day={day} isLast={index === allDays.length -1 } />
+                            <FollowingDays
+                                key={day.date}
+                                day={day}
+                                isLast={index === allDays.length - 1}
+                                locationName={current.location.name}    
+                            />
                         ))}
                     </View>
                 </View>

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { COLORS } from '../themes/colors';
 import { Condition } from '../types/api';
@@ -9,14 +9,21 @@ interface ListItemProps {
     title: string;
     value: string | number;
     condition: Condition;
+    onPress?: () => void;
 }
 
-const ListItem = ({isLast, title, value, condition}: ListItemProps) => {
+const ListItem = ({isLast, title, value, condition, onPress}: ListItemProps) => {
   
-    return (
-      <View style={[styles.container, !isLast && styles.separator]}>
+  return (
+    <>
+      <TouchableOpacity
+        disabled={!onPress}
+        style={[styles.container]}
+        onPress={onPress}>
         <Text style={styles.content}>{title}</Text>
         <Text style={[styles.content, styles.value]}>{value}°</Text>
+        <View style={styles.condition}>
+
         <Image
           source={{
             uri: `https:${condition.icon}`
@@ -24,39 +31,46 @@ const ListItem = ({isLast, title, value, condition}: ListItemProps) => {
           width={40}
           height={40}
           resizeMode='contain'
-        />
-      </View>
-    );
+          />
+          </View>
+      </TouchableOpacity>
+      <View style={ styles.separator} />
+    </>
+  );
 }
 
 export default ListItem
 
 const styles = StyleSheet.create({
 
-    container: {
+  container: {
     
-        flexDirection: 'row',
-        width: '100%',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        minHeight: 40
-      },
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    minHeight: 40
+  },
     
-      separator: {
+  separator: {
     
-        borderWidth: 1,
-        borderColor: COLORS.background
-      },
+    borderWidth: 1,
+    borderColor: COLORS.background
+  },
     
-      content: {
+  content: {
     
-        flex: 1,
-        color: COLORS.text
-      },
+    flex: 1,
+    color: COLORS.text
+  },
     
-      value: {
+  value: {
     
-        textAlign: 'center',
-        fontWeight: '600'
-      },
+    textAlign: 'center',
+    fontWeight: '600'
+  },
+      
+  condition: {
+    flex: 1, alignItems: 'flex-end'
+  }
 })

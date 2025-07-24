@@ -5,60 +5,18 @@ import { fetchCityData, fetchFollowingDays } from '../services/api'
 import { COLORS } from '../themes/colors'
 import dayjs from 'dayjs'
 import ListItem from '../components/ListItem'
+import { RouteProp, useRoute } from '@react-navigation/native'
+import { RootStackParamList } from '../navigation/Root'
 
 const DayDetails = () => {
 
-    const size = 80
-    
-        const [current, setCurrent] = useState<CityData | null>(null)
-        const [followingDays, setFollowingDays] = useState<FollowingDay | null>()
-    
-    
-        useEffect(() => {
-    
-            const init = async () => {
-                
-                const response = await fetchCityData()
-                setCurrent(response)
-                const followingDaysResponse = await fetchFollowingDays()
-                setFollowingDays(followingDaysResponse)
-            }
-    
-            init();
-    
-            return () => {
-    
-                setCurrent(null);
-            }
-    
-        }, [])
-    
-        console.log(followingDays)
-        
-        if (!current) {
-            
-            return <ActivityIndicator
-                color={COLORS.sun}
-                size={size}
-                style={{ height: '100%', marginTop: 100 }} />
-    };
-
-const day = followingDays?.forecast.forecastday[0]
-const locationName = 'Radlin';
-    
-    if (!day) {
-            
-            return <ActivityIndicator
-                color={COLORS.sun}
-                size={size}
-                style={{ height: '100%', marginTop: 100 }} />
-        }
+    const {params: {day, locationName}} = useRoute<RouteProp<RootStackParamList, 'DayDetails'>>()
 
     return (
         <FlatList
             data={day.hour}
             ListHeaderComponent={
-                <View>
+                <View style ={{backgroundColor: COLORS.background}}>
                     <View style={styles.container}>
                         <Text style={[styles.location, styles.text]}>{locationName}</Text>
                         <Text style={[styles.date, styles.text]}>{dayjs(day?.date).format('dddd, D MMM YYYY')}</Text>
@@ -83,7 +41,7 @@ const locationName = 'Radlin';
                     
                             key={hour.time}
                             isLast={isLats}
-                            title={hour.time}
+                            title={ dayjs(hour.time).format('HH:mm')}
                             value={hour.temp_c}
                             condition={hour.condition}
                         />
