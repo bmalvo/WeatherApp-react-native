@@ -149,3 +149,11 @@ export type FollowingDay = {
         forecastday: ForecastDay[]
     }
 };
+
+export type ApiError = {
+
+    error: {
+        code: number;
+        message: string;
+    };
+}

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, FlatList } from 'react-native'
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { COLORS } from '../themes/colors'
 import { useNavigation } from 'expo-router'
@@ -27,9 +27,11 @@ const SelectLocation = () => {
       ListHeaderComponentStyle={styles.header}
       renderItem={({ item }) => (
 
-        <View style={styles.item}>
+        <TouchableOpacity
+          style={styles.item}
+          onPress={() => navigate('LocationDetails',{location: item.value})}>
           <Text style={styles.itemText}>{item.title}</Text>
-        </View>
+        </ TouchableOpacity>
       )}
       contentContainerStyle={styles.container}
     />

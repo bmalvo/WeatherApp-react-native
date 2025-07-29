@@ -4,7 +4,9 @@ import { COLORS } from '../themes/colors';
 import FollowingDays from '../components/FollowingDays';
 import { fetchCityData, fetchFollowingDays } from '../services/api';
 import Footer from '../components/Footer';
-import { CityData, FollowingDay } from '../types/api';
+import { ApiError, CityData, FollowingDay } from '../types/api';
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { RootStackParamList } from '../navigation/Root';
 
 
 export const LocationDetails = () => {
@@ -12,16 +14,18 @@ export const LocationDetails = () => {
     const size = 80
 
     const [current, setCurrent] = useState<CityData | null>(null)
-    const [followingDays, setFollowingDays] = useState<FollowingDay | null>()
+    const [followingDays, setFollowingDays] = useState<FollowingDay | null | ApiError>()
+
+    const { params: {location}} = useRoute<RouteProp<RootStackParamList, 'LocationDetails'>>();
 
 
     useEffect(() => {
 
         const init = async () => {
             
-            const response = await fetchCityData()
+            const response = await fetchCityData(location)
             setCurrent(response)
-            const followingDaysResponse = await fetchFollowingDays()
+            const followingDaysResponse = await fetchFollowingDays(location)
             setFollowingDays(followingDaysResponse)
         }
 
@@ -35,7 +39,8 @@ export const LocationDetails = () => {
     }, [])
 
     
-    if (!current) {
+    if (!current || !followingDays || 'error' in current || 'error' in followingDays)
+    {
         
         return <ActivityIndicator
             color={COLORS.sun}
