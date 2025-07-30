@@ -1,28 +1,24 @@
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import { Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
+import React from 'react'
 import { COLORS } from '../themes/colors'
 import { useNavigation } from 'expo-router'
 import {NativeStackNavigationProp} from '@react-navigation/native-stack'
 import { RootStackParamList } from '../navigation/Root'
 import SearchInput from '../components/SearchInput'
+import { useLocationList } from '../hooks/useLocationList'
 
-type ListItem = {
-
-  title: string;
-  value: string;
-
-}
 
 const SelectLocation = () => {
 
   const { navigate } = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const { list, addToList} = useLocationList();
 
-  const [list, setList] = useState<ListItem[]>([]);
+
 
   return (
 
     <FlatList
-      ListHeaderComponent={<SearchInput  onSearch={(value) => setList([...list, {title: value, value: value}])}/>}
+      ListHeaderComponent={<SearchInput  onSearch={(value) => addToList({title: value, value: value})}/>}
       data={list}
       ListHeaderComponentStyle={styles.header}
       renderItem={({ item }) => (
