@@ -6,6 +6,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack'
 import { RootStackParamList } from '../navigation/Root'
 import SearchInput from '../components/SearchInput'
 import { useLocationList } from '../hooks/useLocationList'
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 
 const SelectLocation = () => {
@@ -27,6 +28,7 @@ const SelectLocation = () => {
           style={styles.item}
           onPress={() => navigate('LocationDetails',{location: item.value})}>
           <Text style={styles.itemText}>{item.title}</Text>
+          <Ionicons name="trash-outline" size={24} color={COLORS.error} />
         </ TouchableOpacity>
       )}
       contentContainerStyle={styles.container}
@@ -62,7 +64,9 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.lightBlue,
     marginBottom: 10,
     padding: 20,
-    borderRadius: 10
+    borderRadius: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
 
   itemText: {
