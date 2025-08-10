@@ -12,7 +12,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 const SelectLocation = () => {
 
   const { navigate } = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const { list, addToList} = useLocationList();
+  const { list, addToList, removeFromList } = useLocationList();
 
 
 
@@ -28,10 +28,13 @@ const SelectLocation = () => {
           style={styles.item}
           onPress={() => navigate('LocationDetails',{location: item.value})}>
           <Text style={styles.itemText}>{item.title}</Text>
+          <TouchableOpacity onPress={() => {removeFromList(item)}}>
           <Ionicons name="trash-outline" size={24} color={COLORS.error} />
+          </ TouchableOpacity>
         </ TouchableOpacity>
       )}
       contentContainerStyle={styles.container}
+      keyExtractor={(item) => item.id}
     />
   )
 }
