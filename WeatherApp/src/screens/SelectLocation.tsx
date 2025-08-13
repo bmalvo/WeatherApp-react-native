@@ -1,4 +1,4 @@
-import { Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
+import { Text, StyleSheet, FlatList, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { COLORS } from '../themes/colors'
 import { useNavigation } from 'expo-router'
@@ -19,7 +19,15 @@ const SelectLocation = () => {
   return (
 
     <FlatList
-      ListHeaderComponent={<SearchInput  onSearch={(value) => addToList({title: value, value: value})}/>}
+      ListHeaderComponent={
+        <View>
+
+          <SearchInput onSearch={(value) => addToList({ title: value, value: value })} />
+          <TouchableOpacity>
+            <Ionicons name="location-outline" size={24} color="black" />
+          </TouchableOpacity>
+        </ View>
+      }
       data={list}
       ListHeaderComponentStyle={styles.header}
       renderItem={({ item }) => (
