@@ -1,13 +1,15 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import { COLORS } from '../themes/colors';
+import SelectLocationByCoordinates from './SelectLocationByCoordinates';
 
 type SearchInputProps = {
 
-    onSearch: (value: string) => void;
+  onSearch: (value: string) => void;
+  rightElement?: React.ReactNode;
 }
 
-const SearchInput = ({onSearch}: SearchInputProps) => {
+const SearchInput = ({onSearch, rightElement}: SearchInputProps) => {
 
     const [value, setValue] = useState('');
 
@@ -19,8 +21,9 @@ const SearchInput = ({onSearch}: SearchInputProps) => {
     }
 
     return (
-        <>
-            <TextInput
+      <View style={styles.container}>
+        <View style={{flexDirection: 'row'}}>
+          <TextInput
                 style={styles.input}
                 placeholder='wpisz lokalizację'
                 placeholderTextColor={'magenta'}
@@ -28,6 +31,9 @@ const SearchInput = ({onSearch}: SearchInputProps) => {
                 onChangeText={setValue}
                 value={value}
             />
+          {rightElement}
+        </View>
+            
             <TouchableOpacity
                 style={styles.button}
                 onPress={OnSearchPress}>
@@ -35,7 +41,7 @@ const SearchInput = ({onSearch}: SearchInputProps) => {
                     Dodaj
                 </Text>
             </TouchableOpacity>
-        </>
+        </View>
     )
 }
 
@@ -43,10 +49,14 @@ export default SearchInput
 
 const styles = StyleSheet.create({
 
-    
+  container: {
+
+    width: '100%'
+  },
+  
   input: {
 
-    width: '100%',
+    flex: 1,
     borderWidth: 1,
     borderColor: COLORS.link,
     padding: 15,

@@ -7,6 +7,7 @@ import { RootStackParamList } from '../navigation/Root'
 import SearchInput from '../components/SearchInput'
 import { useLocationList } from '../hooks/useLocationList'
 import Ionicons from '@expo/vector-icons/Ionicons';
+import SelectLocationByCoordinates from '../components/SelectLocationByCoordinates'
 
 
 const SelectLocation = () => {
@@ -20,13 +21,9 @@ const SelectLocation = () => {
 
     <FlatList
       ListHeaderComponent={
-        <View>
-
-          <SearchInput onSearch={(value) => addToList({ title: value, value: value })} />
-          <TouchableOpacity>
-            <Ionicons name="location-outline" size={24} color="black" />
-          </TouchableOpacity>
-        </ View>
+        <SearchInput
+          onSearch={(value) => addToList({ title: value, value: value })}
+          rightElement={ <SelectLocationByCoordinates />} />
       }
       data={list}
       ListHeaderComponentStyle={styles.header}

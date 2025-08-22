@@ -15,7 +15,11 @@ type ListItem = {
 export const useLocationList = () => {
 
     const [list, setList] = useState<ListItem[]>([]);
-    const { getItem, setItem, removeItem } = useAsyncStorage('loactionList');
+    const {
+        getItem,
+        setItem,
+        // removeItem
+    } = useAsyncStorage('loactionList');
 
     useEffect(() => {
 
