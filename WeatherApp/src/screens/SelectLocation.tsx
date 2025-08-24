@@ -1,4 +1,4 @@
-import { Text, StyleSheet, FlatList, TouchableOpacity, View } from 'react-native'
+import { Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { COLORS } from '../themes/colors'
 import { useNavigation } from 'expo-router'

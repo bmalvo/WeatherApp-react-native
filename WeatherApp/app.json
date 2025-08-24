@@ -23,7 +23,11 @@
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": [
+    "plugins": [[
+      "expo-location",
+      {
+        "LocationAlwaysAndWhenInUsePermission": "Pozwól ${PRODUCT_NAME} na dostęp do lokalizacji"
+      }],
       "expo-router",
       [
         "expo-splash-screen",
