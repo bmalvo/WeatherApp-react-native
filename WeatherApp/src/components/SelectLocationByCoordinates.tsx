@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { COLORS } from '../themes/colors';
@@ -8,7 +8,12 @@ const SelectLocationByCoordinates = () => {
 
     const onButtonPress = async () => {
 
-         let { status } = await Location.requestForegroundPermissionsAsync();
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        
+        if (status === Location.PermissionStatus.DENIED) {
+            
+            Alert.alert('Brak uprawnień', 'Aby móc korzystać z funkcjonalności przejdź do ustawień i zezwól na pobieranie lokalizacji')
+        }
     }
 
 
