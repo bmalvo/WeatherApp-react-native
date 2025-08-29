@@ -3,8 +3,15 @@ import React from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { COLORS } from '../themes/colors';
 import * as Location from 'expo-location';
+import { fetchCityData } from '../services/api';
+import { ListItem } from '../hooks/useLocationList';
 
-const SelectLocationByCoordinates = () => {
+interface SelectLocationByCoordinatesProps {
+
+    onLocationFound: (item: Omit<ListItem, 'id'>) => void
+}
+
+const SelectLocationByCoordinates = ({onLocationFound}:SelectLocationByCoordinatesProps) => {
 
     const onButtonPress = async () => {
 
@@ -12,7 +19,15 @@ const SelectLocationByCoordinates = () => {
         
         if (status === Location.PermissionStatus.DENIED) {
             
-            Alert.alert('Brak uprawnień', 'Aby móc korzystać z funkcjonalności przejdź do ustawień i zezwól na pobieranie lokalizacji')
+            Alert.alert('Brak uprawnień',
+                'Aby móc korzystać z funkcjonalności przejdź do ustawień i zezwól na pobieranie lokalizacji')
+        };
+        if (status === Location.PermissionStatus.GRANTED) {
+
+            const location = await Location.getCurrentPositionAsync();
+            // console.log(location);
+            const citydata = await fetchCityData(`${location.coords.latitude}, ${location.coords.longitude}`)
+            console.log(citydata)
         }
     }
 

@@ -4,7 +4,7 @@ import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 
 
-type ListItem = {
+export type ListItem = {
 
     id: string;
   title: string;
