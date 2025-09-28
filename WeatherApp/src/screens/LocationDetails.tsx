@@ -7,40 +7,46 @@ import Footer from '../components/Footer';
 import { ApiError, CityData, FollowingDay } from '../types/api';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/Root';
+import { useGetCityDataQuery, useGetFollowingDaysQuery } from '../store/api';
 
 
 export const LocationDetails = () => {
 
     const size = 80
 
-    const [current, setCurrent] = useState<CityData | null>(null)
-    const [followingDays, setFollowingDays] = useState<FollowingDay | null | ApiError>()
+    // const [current, setCurrent] = useState<CityData | null>(null)
+    // const [followingDays, setFollowingDays] = useState<FollowingDay | null | ApiError>()
 
-    const { params: {location}} = useRoute<RouteProp<RootStackParamList, 'LocationDetails'>>();
+    const { params: { location } } = useRoute<RouteProp<RootStackParamList, 'LocationDetails'>>();
+    
+
+    const { data: cityData } = useGetCityDataQuery({ location })
+    
+    const { data: followingDaysData } = useGetFollowingDaysQuery({ location });
 
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        const init = async () => {
+        // const init = async () => {
             
-            const response = await fetchCityData(location)
-            setCurrent(response)
-            const followingDaysResponse = await fetchFollowingDays(location)
-            setFollowingDays(followingDaysResponse)
-        }
+            // const response = await fetchCityData(location)
+            // setCurrent(response)
+        //     const followingDaysResponse = await fetchFollowingDays(location)
+        //     setFollowingDays(followingDaysResponse)
+        // }
 
-        init();
+        // init();
 
-        return () => {
+        // return () => {
 
-            setCurrent(null);
-        }
+        //     setCurrent(null);
+        // }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    // }, [])
 
     
-    if (!current || !followingDays || 'error' in current || 'error' in followingDays)
+    if (!cityData || !followingDaysData )
     {
         
         return <ActivityIndicator
@@ -53,28 +59,28 @@ export const LocationDetails = () => {
         <ScrollView>
 
             <View style={styles.constainer}>
-                <Text style={styles.cityName}>{ current.location.name}</Text>
-                <Text style={styles.temperatures}>{ Math.round(current.current.temp_c)}°</Text>
+                <Text style={styles.cityName}>{ cityData.location.name}</Text>
+                <Text style={styles.temperatures}>{ Math.round(cityData.current.temp_c)}°</Text>
                 <View style={styles.weatherContainer}>
                     <Image
                         source={{
-                            uri: `https:${current.current.condition.icon}`
+                            uri: `https:${cityData.current.condition.icon}`
                         }}
                         width={130}
                         height={130}
                         resizeMode='contain'
                     />
-                    <Text style={styles.weather}>{ current.current.condition.text}</Text>
+                    <Text style={styles.weather}>{ cityData.current.condition.text}</Text>
                 </View>
                 <View>
                     <View style={styles.followingDaysContainer}>
-                        {followingDays?.forecast.forecastday.map((day, index, allDays) => (
+                        {followingDaysData?.forecast.forecastday.map((day, index, allDays) => (
                             // console.log(day)
                             <FollowingDays
                                 key={day.date}
                                 day={day}
                                 isLast={index === allDays.length - 1}
-                                locationName={current.location.name}    
+                                locationName={cityData.location.name}    
                             />
                         ))}
                     </View>

@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { CityData } from '../types/api'
+import { CityData, FollowingDay } from '../types/api'
 
 
 export const weatherApi = createApi({
@@ -20,10 +20,25 @@ export const weatherApi = createApi({
                       lang: 'pl',
                       q: location
                   }
-              }
+              };
           }
-      })
-  }),
+      }),
+      getFollowingDays: build.query<FollowingDay, {location: string}>({
+          
+          query: ({location}) => {
+              return {
+                  
+                  url: 'forecast.json',
+                  params: {
+                      key: process.env.EXPO_PUBLIC_API_KEY,
+                      lang: 'pl',
+                      days: 7,
+                      q: location
+                    }
+                }
+            }
+        })
+    })
 })
 
-export const { useGetCityDataQuery } = weatherApi
+export const { useGetCityDataQuery, useGetFollowingDaysQuery } = weatherApi
