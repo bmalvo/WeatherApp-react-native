@@ -9,9 +9,9 @@ import { getLocation, showDefaultErrorAlert, showPermissionDeniedAlert, showPerm
 interface SelectLocationByCoordinatesProps {
 
     onLocationFound: (item: Omit<ListItem, 'id'>) => void
-}
+};
 
-const SelectLocationByCoordinates = ({onLocationFound}:SelectLocationByCoordinatesProps) => {
+const SelectLocationByCoordinates = ({ onLocationFound }: SelectLocationByCoordinatesProps) => {
 
     const onButtonPress = async () => {
 
@@ -29,7 +29,7 @@ const SelectLocationByCoordinates = ({onLocationFound}:SelectLocationByCoordinat
                 
                 onLocationFound(location);
                 // console.log(citydata)
-            } catch(error: any) {
+            } catch (error: any) {
                 
                 if (error.code === 'E_LOCATION_UNAVAILABLE') {
                     
@@ -40,15 +40,14 @@ const SelectLocationByCoordinates = ({onLocationFound}:SelectLocationByCoordinat
                 }
             }
         }
-    }
-        
+    };
 
     return (
-        <TouchableOpacity style = {styles.button} onPress={onButtonPress}>
+        <TouchableOpacity style={styles.button} onPress={onButtonPress}>
             <Ionicons name="location-outline" size={24} color={COLORS.text} />
         </TouchableOpacity>
     )
-}
+};
 
 export default SelectLocationByCoordinates
 
@@ -65,4 +64,4 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         alignSelf: 'center'
     }
-})
+});

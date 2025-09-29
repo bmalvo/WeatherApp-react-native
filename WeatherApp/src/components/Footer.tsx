@@ -1,5 +1,5 @@
-import { Linking, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { Linking, StyleSheet, Text, View } from 'react-native';
+import React from 'react';
 import { COLORS } from '../themes/colors';
 
 
@@ -7,10 +7,10 @@ const Footer = () => {
   return (
     <View style={styles.container}>
       <Text>Powered by</Text>
-      <Text style={styles.link} onPress={() => Linking.openURL('https://www.weatherapi.com/')} >WeatherAPI.com</Text> 
+      <Text style={styles.link} onPress={() => Linking.openURL('https://www.weatherapi.com/')} >WeatherAPI.com</Text>
     </View>
   )
-}
+};
 
 export default Footer
 
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
     color: '#450E66',
     // color: 'blue'
   }
-})
+});

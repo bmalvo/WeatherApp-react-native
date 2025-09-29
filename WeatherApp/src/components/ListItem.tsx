@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import React from 'react';
 import { COLORS } from '../themes/colors';
 import { Condition } from '../types/api';
 
@@ -10,9 +10,9 @@ interface ListItemProps {
     value: string | number;
     condition: Condition;
     onPress?: () => void;
-}
+};
 
-const ListItem = ({isLast, title, value, condition, onPress}: ListItemProps) => {
+const ListItem = ({ isLast, title, value, condition, onPress }: ListItemProps) => {
   
   return (
     <>
@@ -24,20 +24,20 @@ const ListItem = ({isLast, title, value, condition, onPress}: ListItemProps) => 
         <Text style={[styles.content, styles.value]}>{value}°</Text>
         <View style={styles.condition}>
 
-        <Image
-          source={{
-            uri: `https:${condition.icon}`
-          }}
-          width={40}
-          height={40}
-          resizeMode='contain'
+          <Image
+            source={{
+              uri: `https:${condition.icon}`
+            }}
+            width={40}
+            height={40}
+            resizeMode='contain'
           />
-          </View>
+        </View>
       </TouchableOpacity>
-      <View style={ styles.separator} />
+      <View style={styles.separator} />
     </>
   );
-}
+};
 
 export default ListItem
 
@@ -73,4 +73,4 @@ const styles = StyleSheet.create({
   condition: {
     flex: 1, alignItems: 'flex-end'
   }
-})
+});

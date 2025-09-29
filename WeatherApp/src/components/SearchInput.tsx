@@ -1,5 +1,5 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
 import { COLORS } from '../themes/colors';
 
 
@@ -7,43 +7,43 @@ type SearchInputProps = {
 
   onSearch: (value: string) => void;
   rightElement?: React.ReactNode;
-}
+};
 
-const SearchInput = ({onSearch, rightElement}: SearchInputProps) => {
+const SearchInput = ({ onSearch, rightElement }: SearchInputProps) => {
 
-    const [value, setValue] = useState('');
+  const [value, setValue] = useState('');
 
-    const OnSearchPress = () => {
+  const OnSearchPress = () => {
 
-        onSearch(value);
-        setValue('');
+    onSearch(value);
+    setValue('');
 
-    }
+  }
 
-    return (
-      <View style={styles.container}>
-        <View style={{flexDirection: 'row'}}>
-          <TextInput
-                style={styles.input}
-                placeholder='wpisz lokalizację'
-                placeholderTextColor={'magenta'}
-                selectionColor={'magenta'}
-                onChangeText={setValue}
-                value={value}
-            />
-          {rightElement}
-        </View>
+  return (
+    <View style={styles.container}>
+      <View style={{ flexDirection: 'row' }}>
+        <TextInput
+          style={styles.input}
+          placeholder='wpisz lokalizację'
+          placeholderTextColor={'magenta'}
+          selectionColor={'magenta'}
+          onChangeText={setValue}
+          value={value}
+        />
+        {rightElement}
+      </View>
             
-            <TouchableOpacity
-                style={styles.button}
-                onPress={OnSearchPress}>
-                <Text style={styles.buttonText}>
-                    Dodaj
-                </Text>
-            </TouchableOpacity>
-        </View>
-    )
-}
+      <TouchableOpacity
+        style={styles.button}
+        onPress={OnSearchPress}>
+        <Text style={styles.buttonText}>
+          Dodaj
+        </Text>
+      </TouchableOpacity>
+    </View>
+  )
+};
 
 export default SearchInput
 
@@ -82,4 +82,4 @@ const styles = StyleSheet.create({
     color: COLORS.text,
     fontSize: 16
   },
-})
+});

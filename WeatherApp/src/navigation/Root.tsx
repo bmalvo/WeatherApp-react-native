@@ -1,5 +1,5 @@
-import React from 'react'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import React from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { LocationDetails } from '../screens/LocationDetails';
 import DayDetails from '../screens/DayDetails';
 import SelectLocation from '../screens/SelectLocation';
@@ -19,7 +19,7 @@ export type RootStackParamList = {
     day: ForecastDay;
     locationName: string;
   };
-}
+};
 
 const Stack = createNativeStackNavigator();
 
@@ -32,7 +32,6 @@ export const Root = () => {
         headerBackTitle: '',
         headerShadowVisible: false,
         headerTintColor: COLORS.link
-        // headerShown: false
       }}
       initialRouteName='SelectLocation'
     >
@@ -41,4 +40,4 @@ export const Root = () => {
       <Stack.Screen name='SelectLocation' component={SelectLocation} />
     </Stack.Navigator>
   )
-}
+};

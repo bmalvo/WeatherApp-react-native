@@ -7,10 +7,10 @@ import { v4 as uuidv4 } from 'uuid';
 export type ListItem = {
 
     id: string;
-  title: string;
-  value: string;
+    title: string;
+    value: string;
 
-}
+};
 
 export const useLocationList = () => {
 
@@ -18,13 +18,11 @@ export const useLocationList = () => {
     const {
         getItem,
         setItem,
-        // removeItem
     } = useAsyncStorage('loactionList');
 
     useEffect(() => {
 
-        // removeItem()
-        const init = async() => {
+        const init = async () => {
             
             const storageitem = await getItem()
             if (storageitem) {
@@ -34,15 +32,15 @@ export const useLocationList = () => {
         }
 
         init()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     
     const addToList = (item: Omit<ListItem, 'id'>) => {
 
         const newList = [...list, { ...item, id: uuidv4() }];
         setList(newList);
         setItem(JSON.stringify(newList));
-    }
+    };
 
     const removeFromList = (item: ListItem) => {
 
@@ -55,7 +53,7 @@ export const useLocationList = () => {
             setList(newList);
             setItem(JSON.stringify(newList));
         }
-    }
+    };
 
     return {
 

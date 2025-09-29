@@ -6,4 +6,4 @@ export const COLORS = {
     lightBlue: '#34bffa',
     link: '#450E66',
     error: '#ff7b7b'
-}
+};

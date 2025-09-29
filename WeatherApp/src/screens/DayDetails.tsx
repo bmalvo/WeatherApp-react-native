@@ -1,20 +1,20 @@
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { COLORS } from '../themes/colors'
-import dayjs from 'dayjs'
-import ListItem from '../components/ListItem'
-import { RouteProp, useRoute } from '@react-navigation/native'
-import { RootStackParamList } from '../navigation/Root'
+import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { COLORS } from '../themes/colors';
+import dayjs from 'dayjs';
+import ListItem from '../components/ListItem';
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { RootStackParamList } from '../navigation/Root';
 
 const DayDetails = () => {
 
-    const {params: {day, locationName}} = useRoute<RouteProp<RootStackParamList, 'DayDetails'>>()
+    const { params: { day, locationName } } = useRoute<RouteProp<RootStackParamList, 'DayDetails'>>()
 
     return (
         <FlatList
             data={day.hour}
             ListHeaderComponent={
-                <View style ={{backgroundColor: COLORS.background}}>
+                <View style={{ backgroundColor: COLORS.background }}>
                     <View style={styles.container}>
                         <Text style={[styles.location, styles.text]}>{locationName}</Text>
                         <Text style={[styles.date, styles.text]}>{dayjs(day?.date).format('dddd, D MMM YYYY')}</Text>
@@ -39,7 +39,7 @@ const DayDetails = () => {
                     
                             key={hour.time}
                             isLast={isLats}
-                            title={ dayjs(hour.time).format('HH:mm')}
+                            title={dayjs(hour.time).format('HH:mm')}
                             value={hour.temp_c}
                             condition={hour.condition}
                         />
@@ -49,7 +49,7 @@ const DayDetails = () => {
             }
         />
     );
-}
+};
 
 export default DayDetails
 

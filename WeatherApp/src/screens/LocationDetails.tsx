@@ -1,10 +1,8 @@
 import { ScrollView, StyleSheet, Text, View, ActivityIndicator, Image } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { COLORS } from '../themes/colors';
 import FollowingDays from '../components/FollowingDays';
-import { fetchCityData, fetchFollowingDays } from '../services/api';
 import Footer from '../components/Footer';
-import { ApiError, CityData, FollowingDay } from '../types/api';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/Root';
 import { useGetCityDataQuery, useGetFollowingDaysQuery } from '../store/api';
@@ -12,42 +10,13 @@ import { useGetCityDataQuery, useGetFollowingDaysQuery } from '../store/api';
 
 export const LocationDetails = () => {
 
-    const size = 80
-
-    // const [current, setCurrent] = useState<CityData | null>(null)
-    // const [followingDays, setFollowingDays] = useState<FollowingDay | null | ApiError>()
-
+    const size = 80;
     const { params: { location } } = useRoute<RouteProp<RootStackParamList, 'LocationDetails'>>();
-    
-
-    const { data: cityData } = useGetCityDataQuery({ location })
-    
+    const { data: cityData } = useGetCityDataQuery({ location });
     const { data: followingDaysData } = useGetFollowingDaysQuery({ location });
 
-
-    // useEffect(() => {
-
-        // const init = async () => {
-            
-            // const response = await fetchCityData(location)
-            // setCurrent(response)
-        //     const followingDaysResponse = await fetchFollowingDays(location)
-        //     setFollowingDays(followingDaysResponse)
-        // }
-
-        // init();
-
-        // return () => {
-
-        //     setCurrent(null);
-        // }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [])
-
     
-    if (!cityData || !followingDaysData )
-    {
+    if (!cityData || !followingDaysData) {
         
         return <ActivityIndicator
             color={COLORS.sun}
@@ -59,8 +28,8 @@ export const LocationDetails = () => {
         <ScrollView>
 
             <View style={styles.constainer}>
-                <Text style={styles.cityName}>{ cityData.location.name}</Text>
-                <Text style={styles.temperatures}>{ Math.round(cityData.current.temp_c)}°</Text>
+                <Text style={styles.cityName}>{cityData.location.name}</Text>
+                <Text style={styles.temperatures}>{Math.round(cityData.current.temp_c)}°</Text>
                 <View style={styles.weatherContainer}>
                     <Image
                         source={{
@@ -70,7 +39,7 @@ export const LocationDetails = () => {
                         height={130}
                         resizeMode='contain'
                     />
-                    <Text style={styles.weather}>{ cityData.current.condition.text}</Text>
+                    <Text style={styles.weather}>{cityData.current.condition.text}</Text>
                 </View>
                 <View>
                     <View style={styles.followingDaysContainer}>
@@ -80,16 +49,16 @@ export const LocationDetails = () => {
                                 key={day.date}
                                 day={day}
                                 isLast={index === allDays.length - 1}
-                                locationName={cityData.location.name}    
+                                locationName={cityData.location.name}
                             />
                         ))}
                     </View>
                 </View>
             </View>
-            <Footer/>
+            <Footer />
         </ScrollView>
     );
-}
+};
 
 const styles = StyleSheet.create({
 
@@ -129,11 +98,11 @@ const styles = StyleSheet.create({
 
     followingDaysContainer: {
 
-        margin: 20, 
+        margin: 20,
         marginTop: 40,
         backgroundColor: COLORS.lightBlue,
         paddingHorizontal: 20,
         paddingVertical: 10,
         borderRadius: 10
     }
-})
+});

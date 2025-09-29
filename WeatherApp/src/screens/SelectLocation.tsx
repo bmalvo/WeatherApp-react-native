@@ -1,13 +1,13 @@
-import { Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
-import React from 'react'
-import { COLORS } from '../themes/colors'
-import { useNavigation } from 'expo-router'
-import {NativeStackNavigationProp} from '@react-navigation/native-stack'
-import { RootStackParamList } from '../navigation/Root'
-import SearchInput from '../components/SearchInput'
-import { useLocationList } from '../hooks/useLocationList'
+import { Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { COLORS } from '../themes/colors';
+import { useNavigation } from 'expo-router';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../navigation/Root';
+import SearchInput from '../components/SearchInput';
+import { useLocationList } from '../hooks/useLocationList';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import SelectLocationByCoordinates from '../components/SelectLocationByCoordinates'
+import SelectLocationByCoordinates from '../components/SelectLocationByCoordinates';
 
 
 const SelectLocation = () => {
@@ -23,7 +23,7 @@ const SelectLocation = () => {
       ListHeaderComponent={
         <SearchInput
           onSearch={(value) => addToList({ title: value, value: value })}
-          rightElement={ <SelectLocationByCoordinates onLocationFound={(item) => addToList(item)}/>} />
+          rightElement={<SelectLocationByCoordinates onLocationFound={(item) => addToList(item)} />} />
       }
       data={list}
       ListHeaderComponentStyle={styles.header}
@@ -31,10 +31,10 @@ const SelectLocation = () => {
 
         <TouchableOpacity
           style={styles.item}
-          onPress={() => navigate('LocationDetails',{location: item.value})}>
+          onPress={() => navigate('LocationDetails', { location: item.value })}>
           <Text style={styles.itemText}>{item.title}</Text>
-          <TouchableOpacity onPress={() => {removeFromList(item)}}>
-          <Ionicons name="trash-outline" size={24} color={COLORS.error} />
+          <TouchableOpacity onPress={() => { removeFromList(item) }}>
+            <Ionicons name="trash-outline" size={24} color={COLORS.error} />
           </ TouchableOpacity>
         </ TouchableOpacity>
       )}
@@ -42,7 +42,7 @@ const SelectLocation = () => {
       keyExtractor={(item) => item.id}
     />
   )
-}
+};
 
 export default SelectLocation
 
